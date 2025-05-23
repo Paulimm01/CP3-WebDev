@@ -18,5 +18,5 @@ Este projeto consiste em uma página web simples para cadastro de produtos. O fo
 ## Tecnologias Utilizadas
 
 - HTML5
-- CSS3
+- CSS
 - JavaScript
