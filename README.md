@@ -2,7 +2,7 @@
 
 ## Grupo
 
-Paulo Henrique
+- Paulo Henrique
 
 ## Descrição
 
