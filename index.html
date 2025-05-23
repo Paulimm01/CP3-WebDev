@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Produtos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            margin-bottom: 30px;
+            padding: 30px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn {
+            display:flex;
+            justify-content: center;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #errorMessage {
+            color: red;
+            display: none;
+        }
+
+        #productList li {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        #productList li.tecnologia {
+            font-weight: bold;
+        }
+
+        #productList li.alimentos {
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Cadastro de Produtos</h1>
+    <form id="productForm">
+        <label for="productName">Nome do Produto:</label>
+        <input type="text" id="productName" required>
+        <label for="productPrice">Preço (R$):</label>
+        <input type="number" id="productPrice" step="0.01" min="0.01" required>
+        <label for="productCategory">Categoria:</label>
+        <select id="productCategory" required>
+            <option value="">Selecione...</option>
+            <option value="Tecnologia">Tecnologia</option>
+            <option value="Alimentos">Alimentos</option>
+            <option value="Cozinha">Cozinha</option>
+        </select>
+        <div class = "btn"><button type="submit">Cadastrar Produto</button></div>
+    </form>
+    <div id="errorMessage">Por favor, preencha todos os campos corretamente.</div>
+    <h2>Produtos Cadastrados</h2>
+    <ul id="productList"></ul>
+
+    <script>
+        document.getElementById('productForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const name = document.getElementById('productName').value.trim();
+            const price = parseFloat(document.getElementById('productPrice').value);
+            const category = document.getElementById('productCategory').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const productList = document.getElementById('productList');
+            if (!name || !category || isNaN(price) || price <= 0 || !Number.isFinite(price)) {
+                errorMessage.style.display = 'block';
+                return;
+            }
+            errorMessage.style.display = 'none';
+            const li = document.createElement('li');
+            li.textContent = `Produto: ${name} - R$ ${price.toFixed(2)} - Categoria: ${category}`;
+            if (category === 'Tecnologia') {
+                li.classList.add('tecnologia');
+            } else if (category === 'Alimentos') {
+                li.classList.add('alimentos');
+            }
+            productList.appendChild(li);
+            document.getElementById('productForm').reset();
+        });
+    </script>
+</body>
+
+</html>
